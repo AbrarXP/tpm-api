@@ -1,0 +1,24 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/$PROJECT_ID/tpm-tugas-akhir', '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/tpm-tugas-akhir']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run',
+        'deploy',
+        'tpm-tugas-akhir',
+        '--image',
+        'gcr.io/$PROJECT_ID/tpm-tugas-akhir',
+        '--platform',
+        'managed',
+        '--region',
+        'asia-southeast2',
+        '--allow-unauthenticated',
+        '--port',
+        '3000'
+      ]
