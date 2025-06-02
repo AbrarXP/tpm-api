@@ -26,4 +26,7 @@ app.use("/api", makananRoutes);
 // Sync DB dan mulai server
 db.sync().then(() => console.log("Database synced"));
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
